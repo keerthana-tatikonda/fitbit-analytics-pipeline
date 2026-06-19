@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    database: FITBIT_DB
+    schema: RAW
+    tables:
+      - name: raw_daily_activity
+        description: "Raw daily activity data loaded from Fitbit CSV"
+      - name: raw_sleep_day
+        description: "Raw sleep data loaded from Fitbit CSV"
+      - name: raw_weight_log
+        description: "Raw weight log data loaded from Fitbit CSV"
