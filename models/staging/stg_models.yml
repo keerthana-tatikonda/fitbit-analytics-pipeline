@@ -1,0 +1,92 @@
+version: 2
+
+models:
+  - name: stg_daily_activity
+    description: "Cleaned and standardized daily activity data from Fitbit"
+    columns:
+      - name: user_id
+        description: "Unique identifier for each user"
+        tests:
+          - not_null
+
+      - name: activity_date
+        description: "Date of the activity record"
+        tests:
+          - not_null
+
+      - name: total_steps
+        description: "Total steps taken - zero steps removed in cleaning"
+        tests:
+          - not_null
+
+      - name: user_segment
+        description: "WHO guideline based activity classification"
+        tests:
+          - not_null
+          - accepted_values:
+              config:
+                severity: error
+              arguments:
+                values: ['Active', 'Moderate', 'Sedentary']
+
+      - name: calories
+        description: "Total calories burned that day"
+        tests:
+          - not_null
+
+      - name: day_of_week
+        description: "Day name extracted from activity date"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Monday', 'Tuesday', 'Wednesday',
+                         'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+  - name: stg_sleep_day
+    description: "Cleaned and standardized sleep data from Fitbit"
+    columns:
+      - name: user_id
+        description: "Unique identifier for each user"
+        tests:
+          - not_null
+
+      - name: sleep_date
+        description: "Date of the sleep record"
+        tests:
+          - not_null
+
+      - name: hours_asleep
+        description: "Total hours asleep converted from minutes"
+        tests:
+          - not_null
+
+      - name: sleep_quality
+        description: "Sleep quality label based on NHS guidelines"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Good Sleeper', 'Moderate Sleeper', 'Poor Sleeper']
+
+  - name: stg_weight_log
+    description: "Cleaned weight log data from Fitbit"
+    columns:
+      - name: user_id
+        description: "Unique identifier for each user"
+        tests:
+          - not_null
+
+      - name: bmi
+        description: "Body mass index"
+        tests:
+          - not_null
+
+      - name: bmi_category
+        description: "WHO BMI classification"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Underweight', 'Normal weight',
+                         'Overweight', 'Obese']
