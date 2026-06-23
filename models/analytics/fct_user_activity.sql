@@ -37,4 +37,6 @@ SELECT
     u.avg_daily_calories,
     u.total_days_tracked
 FROM activity a
-LEFT JOIN user_summary u ON a.user_id = u.user_id
+LEFT JOIN user_summary u 
+    ON a.user_id = u.user_id
+    AND a.user_segment = u.user_segment
